@@ -1,0 +1,17 @@
+<!-- templates/notifications.html -->
+{% extends "base.html" %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Notifications</h1>
+{% if notifs %}
+<ul class="list-group">
+    {% for notif in notifs %}
+    <li class="list-group-item {% if not notif[4] %}list-group-item-info{% endif %}">
+        {{ notif[2] }} <small class="text-muted">{{ notif[3] }}</small>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="text-center">No notifications.</p>
+{% endif %}
+{% endblock %}

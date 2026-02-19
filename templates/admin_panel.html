@@ -1,0 +1,80 @@
+<!-- templates/admin_panel.html -->
+{% extends "base.html" %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Admin Panel</h1>
+<h3>Ads</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>User</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ad in ads %}
+        <tr>
+            <td>{{ ad[0] }}</td>
+            <td>{{ ad[1] }}</td>
+            <td>{{ ad[2] }}</td>
+            <td>{{ ad[3] }}</td>
+            <td>{{ ad[4] }}</td>
+            <td>
+                <a href="/admin/edit_ad/{{ ad[0] }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="/admin/delete/{{ ad[0] }}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h3>Users</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>
+                {% if user[3] %}
+                <a href="/admin/unban/{{ user[0] }}" class="btn btn-success btn-sm">Unban</a>
+                {% else %}
+                <a href="/admin/ban/{{ user[0] }}?reason=Banned by admin" class="btn btn-danger btn-sm">Ban</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h3>Statistics</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Ad Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stat in stats %}
+        <tr>
+            <td>{{ stat[0] }}</td>
+            <td>{{ stat[1] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/admin/export_csv" class="btn btn-primary">Export Ads to CSV</a>
+<a href="/admin/logout" class="btn btn-secondary">Logout</a>
+{% endblock %}

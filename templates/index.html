@@ -1,0 +1,18 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Categories</h1>
+<div class="row">
+    {% for category in categories %}
+    <div class="col-md-4">
+        <div class="card text-center mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ category[1] }}</h5>
+                <a href="/category/{{ category[0] }}" class="btn btn-primary">View Ads</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

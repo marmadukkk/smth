@@ -1,0 +1,32 @@
+<!-- templates/admin_edit_ad.html -->
+{% extends "base.html" %}
+{% block title %}Admin Edit Ad{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Admin Edit Ad</h1>
+<form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ ad[1] }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="5" required>{{ ad[2] }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="category_id" class="form-label">Category</label>
+        <select class="form-select" id="category_id" name="category_id" required>
+            {% for category in categories %}
+            <option value="{{ category[0] }}" {% if category[0] == ad[3] %}selected{% endif %}>{{ category[1] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">Image (optional)</label>
+        <input type="file" class="form-control" id="image" name="image">
+        {% if ad[5] %}
+        <img src="{{ url_for('static', filename='uploads/' + ad[5]) }}" class="img-fluid mt-2" alt="Current Image">
+        {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+{% endblock %}

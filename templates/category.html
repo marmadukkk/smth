@@ -1,0 +1,37 @@
+<!-- templates/category.html -->
+{% extends "base.html" %}
+{% block title %}{{ category_name }}{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">{{ category_name }}</h1>
+{% if ads %}
+<div class="row">
+    {% for ad in ads %}
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ ad[1] }}</h5>
+                <p class="card-text">{{ ad[2] }}</p>
+                <p class="card-text"><small class="text-muted">Posted by {{ ad[7] }} on {{ ad[6] }}</small></p>
+                <a href="/ad/{{ ad[0] }}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page > 1 %}
+        <li class="page-item"><a class="page-link" href="?page={{ page - 1 }}">Previous</a></li>
+        {% endif %}
+        {% for p in range(1, pages + 1) %}
+        <li class="page-item {% if p == page %}active{% endif %}"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+        {% endfor %}
+        {% if page < pages %}
+        <li class="page-item"><a class="page-link" href="?page={{ page + 1 }}">Next</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% else %}
+<p class="text-center">No ads in this category yet.</p>
+{% endif %}
+{% endblock %}
